@@ -8,5 +8,11 @@ module.exports = {
   testMatch: [
     '**/tests/**/*.test.js'
   ],
-  testTimeout: 10000
+  testTimeout: 10000,
+  reporters: [
+    'default',
+    ['jest-allure2-reporter', {
+      resultsDir: 'allure-results'
+    }]
+  ]
 };

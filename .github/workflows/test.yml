@@ -31,10 +31,22 @@ jobs:
     - name: Run tests with coverage
       run: npm run test:coverage
 
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3
+    - name: Generate Allure report
+      if: always()
+      run: npm run allure:generate
+
+    - name: Upload Allure report as artifact
+      if: always()
+      uses: actions/upload-artifact@v3
       with:
-        files: ./coverage/lcov.info
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: false
+        name: allure-report
+        path: allure-report
+        retention-days: 30
+
+    - name: Deploy Allure report to GitHub Pages
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./allure-report
+        destination_dir: allure-report
