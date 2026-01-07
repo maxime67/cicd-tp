@@ -5,6 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.get("/hello/:name?", (req, res) => {
+
   const name = req.params.name;
 
   res.send(getGreeting(name));
