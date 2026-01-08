@@ -9,10 +9,9 @@ module.exports = {
     '**/tests/**/*.test.js'
   ],
   testTimeout: 10000,
-  reporters: [
+    reporters: [
     'default',
-    ['jest-allure2-reporter', {
-      resultsDir: 'allure-results'
-    }]
-  ]
+    '<rootDir>/jest-prometheus-reporter.js'
+  ],
+  testTimeout: 30000,
 };
